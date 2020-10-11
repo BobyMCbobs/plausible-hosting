@@ -29,7 +29,7 @@
 
 #+NAME: install Postgres
 #+begin_src shell :pwd ./ :results silent
-  kubectl -n plausible apply -f postgresql.yaml
+  kubectl -n plausible apply -f postgres.yaml
 #+end_src
 
 #+NAME: create secrets
@@ -40,7 +40,7 @@
     --from-literal=ADMIN_USER_NAME="Example User" \
     --from-literal=ADMIN_USER_PWD="password" \
     --from-literal=SECRET_KEY_BASE="$(openssl rand -base64 64)" \
-    --from-literal=DATABASE_URL="postgres://plausible:$DATABASE_PWD@plausible-db-pooler/plausible?ssl=true" \
+    --from-literal=DATABASE_URL="postgres://plausible:plausible@postgres/plausible?ssl=false" \
     --from-literal=CLICKHOUSE_DATABASE_URL=http://plausible-events-db:8123/plausible
 #+end_src
 
@@ -52,7 +52,8 @@
 #+NAME: create configuration
 #+begin_src shell :results silent
   kubectl -n plausible create configmap plausible \
-    --from-literal=BASE_URL=http://$(minikube ip):$(kubectl -n plausible get svc plausible -o=jsonpath='{.spec.ports[0].nodePort}')
+    --from-literal=BASE_URL=http://plausible.hh.sharing.io
+    #--from-literal=BASE_URL=http://39.178.89.103:$(kubectl -n plausible get svc plausible -o=jsonpath='{.spec.ports[0].nodePort}')
 #+end_src
 
 #+NAME: install Plausible

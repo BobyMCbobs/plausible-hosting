@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: plausible
+spec:
+  rules:
+  - host: "plausible.hh.sharing.io"
+    http:
+      paths:
+      - backend:
+          serviceName: plausible
+          servicePort: 8000
+        path: /
