@@ -51,7 +51,8 @@
 #+NAME: create configuration
 #+begin_src shell :results silent
   kubectl -n plausible create configmap plausible \
-    --from-literal=BASE_URL=http://$(minikube ip):$(kubectl -n plausible get svc plausible -o=jsonpath='{.spec.ports[0].nodePort}')
+    --from-literal=BASE_URL=http://plausible.hh.sharing.io
+    #--from-literal=BASE_URL=http://39.178.89.103:$(kubectl -n plausible get svc plausible -o=jsonpath='{.spec.ports[0].nodePort}')
 #+end_src
 
 #+NAME: install Plausible

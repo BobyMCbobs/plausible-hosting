@@ -21,11 +21,4 @@ spec:
         ports:
         - containerPort: 8123
         resources: {}
-        volumeMounts:
-        - mountPath: /var/lib/clickhouse
-          name: event-data
       restartPolicy: Always
-      volumes:
-      - name: event-data
-        persistentVolumeClaim:
-          claimName: event-data
